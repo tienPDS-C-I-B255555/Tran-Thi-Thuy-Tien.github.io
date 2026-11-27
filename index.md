@@ -1,13 +1,626 @@
-<nav>
-  <a href="#du-an">Dự án</a>
-  <a href="#lien-he">Liên hệ</a>
-</nav>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Windie's portfolio. Explore projects in automation, interactive web design, and digital media by an Information Technology student.">
+  <meta name="theme-color" content="#f8f6f0">
+  <title>Windie — Portfolio</title>
 
-<section id="du-an">
-  <h2>Dự án</h2>
-  <p>Telegram bot tóm tắt tin nhắn.</p>
-</section>
+  <style>
+    :root {
+      --paper: #f8f6f0;
+      --ink: #212222;
+      --muted: #56564f;
+      --line: #d8d5ca;
+      --purple: #decffc;
+      --accent: #593f8e;
+      --green: #eaf1db;
+      --peach: #f6e1d7;
+      --display: Georgia, "Times New Roman", serif;
+      --sans: "Segoe UI", Arial, sans-serif;
+      --mono: "Cascadia Mono", Consolas, monospace;
+    }
 
-<section id="lien-he">
-  <h2>Liên hệ</h2>
-</section>
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 24px;
+    }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font: 1rem/1.55 var(--sans);
+    }
+
+    a { color: inherit; }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 5px; }
+    .wrap { width: min(1120px, calc(100% - 80px)); margin-inline: auto; }
+
+    .skip-link {
+      position: absolute;
+      z-index: 2;
+      top: 8px;
+      left: 8px;
+      padding: 10px 14px;
+      background: white;
+      transform: translateY(-150%);
+    }
+
+    .skip-link:focus { transform: none; }
+
+    .top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      min-height: 81px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      font: bold 1.65rem/1 var(--display);
+      letter-spacing: -.055em;
+      text-decoration: none;
+    }
+
+    .brand-mark {
+      width: 12px;
+      height: 12px;
+      background: var(--accent);
+      transform: rotate(45deg);
+      border-radius: 2px;
+    }
+
+    .menu { display: flex; align-items: center; gap: clamp(12px, 2.7vw, 35px); }
+    .menu a { font: 600 .84rem/1.2 var(--sans); text-decoration: none; }
+    .menu a:hover, .menu a:focus-visible {
+      color: var(--accent);
+      text-decoration: underline;
+      text-underline-offset: 5px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.12fr .88fr;
+      align-items: center;
+      gap: clamp(22px, 5vw, 70px);
+      padding-block: 66px 70px;
+    }
+
+    .eyebrow {
+      margin: 0 0 18px;
+      color: var(--accent);
+      font: 600 .72rem/1.4 var(--mono);
+      letter-spacing: .095em;
+      text-transform: uppercase;
+    }
+
+    h1, h2, h3, p { margin-top: 0; }
+
+    h1, h2 {
+      font-family: var(--display);
+      font-weight: 400;
+      line-height: 1.12;
+      letter-spacing: -.047em;
+    }
+
+    h1 { margin-bottom: 24px; font-size: clamp(3rem, 5.15vw, 5rem); }
+    h1 em { color: var(--accent); }
+    h2 { margin-bottom: 0; font-size: clamp(2.35rem, 4vw, 4rem); }
+
+    .hero-description {
+      max-width: 44ch;
+      margin-bottom: 28px;
+      color: var(--muted);
+      font-size: 1.08rem;
+    }
+
+    .actions { display: flex; flex-wrap: wrap; gap: 9px 14px; }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 13px;
+      min-height: 46px;
+      padding: 9px 17px;
+      border: 1px solid var(--ink);
+      border-radius: 3px;
+      font-weight: 650;
+      text-decoration: none;
+    }
+
+    .button.primary { background: var(--ink); color: var(--paper); }
+    .button:hover { background: var(--purple); color: var(--ink); }
+
+    .hero-art {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      display: grid;
+      place-items: center;
+      min-height: 345px;
+      border: 1px solid #b9a6df;
+      border-radius: 4px;
+      background-color: var(--purple);
+      background-image:
+        linear-gradient(#593f8e19 1px, transparent 1px),
+        linear-gradient(90deg, #593f8e19 1px, transparent 1px);
+      background-size: 26px 26px;
+    }
+
+    .art-ring {
+      position: absolute;
+      z-index: -1;
+      width: 70%;
+      aspect-ratio: 1;
+      border: 1px solid #856bb9;
+      border-radius: 50%;
+    }
+
+    .art-ring::before, .art-ring::after {
+      position: absolute;
+      inset: 8%;
+      border: 1px solid #9b84cb;
+      border-radius: 50%;
+      content: "";
+    }
+
+    .art-ring::after { inset: 17%; }
+
+    .diagram {
+      width: min(75%, 310px);
+      padding: 16px 18px 19px;
+      border: 1px solid var(--ink);
+      border-radius: 4px;
+      background: var(--paper);
+      box-shadow: 8px 8px 0 var(--accent);
+      transform: rotate(-5deg);
+    }
+
+    .diagram-head {
+      display: flex;
+      gap: 5px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .diagram-head i {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    .diagram ol {
+      display: grid;
+      gap: 8px;
+      margin: 0;
+      padding: 13px 0 0;
+      list-style: none;
+    }
+
+    .diagram li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 7px 9px;
+      border: 1px solid var(--line);
+      border-radius: 3px;
+      font-size: .8rem;
+      font-weight: 650;
+    }
+
+    .diagram li:nth-child(2) { background: var(--purple); }
+    .step-symbol { color: var(--accent); font-family: var(--mono); }
+    .section { padding-block: 52px 60px; border-top: 1px solid var(--line); }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      flex-wrap: wrap;
+      gap: 12px 25px;
+      margin-bottom: 28px;
+    }
+
+    .section-head p { max-width: 34ch; margin: 0; color: var(--muted); }
+
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      align-items: start;
+      gap: 19px;
+    }
+
+    .project {
+      min-width: 0;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      background: #fffcf5;
+    }
+
+    .visual {
+      display: grid;
+      place-items: center;
+      min-height: 172px;
+      padding: 21px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .visual.bot { background: var(--green); }
+    .visual.web { background: var(--peach); }
+    .visual.media { background: var(--purple); }
+
+    .mini {
+      display: grid;
+      align-content: center;
+      justify-items: start;
+      gap: 8px;
+      width: min(100%, 220px);
+      min-height: 100px;
+      padding: 12px;
+      border: 1px solid var(--ink);
+      border-radius: 4px;
+      background: #fffcf5;
+      box-shadow: 4px 4px var(--ink);
+      transform: rotate(-4deg);
+    }
+
+    .mini b { font: 600 .68rem/1.3 var(--mono); letter-spacing: .02em; }
+
+    .bubble {
+      padding: 3px 7px;
+      border: 1px solid #b8c4a6;
+      border-radius: 4px;
+      background: var(--green);
+      font: .65rem/1.3 var(--mono);
+    }
+
+    .bubble.answer { justify-self: end; background: #f3f5ec; }
+    .mini.bday { justify-items: center; background: #ffefe8; }
+    .mini.bday b { color: #743e51; font: italic 1.22rem/1.05 var(--display); }
+    .cake { color: #743e51; font: 1.22rem/1 var(--mono); letter-spacing: .15em; }
+    .timeline { width: 100%; display: grid; grid-template-columns: 1fr 1.6fr .8fr; gap: 4px; }
+
+    .clip {
+      display: block;
+      height: 17px;
+      border: 1px solid #856bb9;
+      border-radius: 2px;
+      background: var(--purple);
+    }
+
+    .clip:nth-child(2) { background: #b89be8; }
+
+    .audio-bar {
+      display: block;
+      width: 100%;
+      height: 11px;
+      border-radius: 2px;
+      background: repeating-linear-gradient(90deg, #593f8e 0 2px, #e2d5f9 2px 5px);
+    }
+
+    .project-body { padding: 19px; }
+    .project h3 { margin-bottom: 8px; font: 400 1.48rem/1.2 var(--display); letter-spacing: -.025em; }
+    .project p { color: var(--muted); font-size: .92rem; }
+    .project-lead { min-height: 4.45em; margin-bottom: 13px; }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin: 0 0 17px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .tags li {
+      padding: 3px 7px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--muted);
+      font: .68rem/1.3 var(--mono);
+    }
+
+    details { border-top: 1px solid var(--line); }
+
+    summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      min-height: 44px;
+      color: var(--accent);
+      font-size: .87rem;
+      font-weight: 650;
+      list-style: none;
+      cursor: pointer;
+    }
+
+    summary::-webkit-details-marker { display: none; }
+    summary::after { content: "+" / ""; font: 1.15rem/1 var(--mono); }
+    details[open] summary::after { content: "−" / ""; }
+    .case { padding-block: 4px 2px; }
+    .case h4 { margin: 0 0 3px; font-size: .84rem; }
+    .case p { margin: 0 0 12px; }
+    .case p:last-child { margin-bottom: 0; }
+
+    .about { display: grid; grid-template-columns: 1.1fr .9fr; gap: 36px 80px; }
+    .about h2 { margin-bottom: 18px; }
+    .about p, .contact p { max-width: 57ch; color: var(--muted); }
+    .about p:last-child, .contact p:last-child { margin-bottom: 0; }
+    .skills { padding: 20px; border: 1px solid var(--line); border-radius: 4px; }
+    .skills h3 { margin-bottom: 10px; font: 400 1.43rem/1.25 var(--display); }
+    .skills dl { margin: 0; }
+
+    .skills dl div {
+      display: grid;
+      grid-template-columns: minmax(85px, .8fr) 1.8fr;
+      gap: 10px;
+      padding-block: 10px;
+      border-top: 1px solid var(--line);
+    }
+
+    .skills dt { font-size: .84rem; font-weight: 650; }
+    .skills dd { margin: 0; color: var(--muted); font-size: .84rem; }
+
+    .contact {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px 34px;
+      padding: clamp(22px, 4vw, 48px);
+      border: 1px solid #b9a6df;
+      border-radius: 4px;
+      background: var(--purple);
+    }
+
+    .contact h2 { margin-bottom: 10px; }
+    .contact .button { white-space: nowrap; }
+
+    footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding-block: 20px 30px;
+      color: var(--muted);
+      font-size: .84rem;
+    }
+
+    footer a { text-underline-offset: 3px; }
+
+    @media (max-width: 960px) {
+      .projects { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 730px) {
+      .wrap { width: min(560px, calc(100% - 40px)); }
+      .hero, .about { grid-template-columns: 1fr; }
+      .hero { padding-block: 44px 48px; }
+      .hero-art { min-height: 250px; }
+      .section { padding-block: 39px 44px; }
+      .project-lead { min-height: 0; }
+    }
+
+    @media (max-width: 510px) {
+      .top { flex-wrap: wrap; gap: 11px; padding-block: 14px; }
+      .menu { gap: 18px; }
+      h1 { font-size: clamp(2.65rem, 10vw, 3.4rem); }
+      .projects { grid-template-columns: 1fr; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+
+<body id="top">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="wrap top">
+    <a class="brand" href="#top">
+      <span class="brand-mark" aria-hidden="true"></span>
+      Windie
+    </a>
+
+    <nav class="menu" aria-label="Navigation">
+      <a href="#projects">Projects</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main class="wrap" id="main" tabindex="-1">
+    <section class="hero" aria-labelledby="intro">
+      <div>
+        <p class="eyebrow">Windie / Information Technology student</p>
+        <h1 id="intro">I design and build <em>digital solutions.</em></h1>
+        <p class="hero-description">
+          I'm interested in how people use technology, from catching up on group chats
+          to interacting with a website.
+        </p>
+
+        <div class="actions">
+          <a class="button primary" href="#projects">
+            Explore projects <span aria-hidden="true">&darr;</span>
+          </a>
+          <a class="button" href="https://github.com/tienPDS-C-I-B255555">
+            GitHub <span aria-hidden="true">&#8599;</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-art">
+        <div class="art-ring" aria-hidden="true"></div>
+        <div class="diagram">
+          <div class="diagram-head" aria-hidden="true"><i></i><i></i><i></i></div>
+          <ol>
+            <li><span class="step-symbol" aria-hidden="true">&#9678;</span> Observe how people work</li>
+            <li><span class="step-symbol" aria-hidden="true">&#9671;</span> Build a prototype</li>
+            <li><span class="step-symbol" aria-hidden="true">&#8635;</span> Test and refine</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="projects" aria-labelledby="projects-title">
+      <div class="section-head">
+        <h2 id="projects-title">Selected work</h2>
+        <p>Automation, interactive web, and digital content production.</p>
+      </div>
+
+      <div class="projects">
+        <article class="project">
+          <div class="visual bot" aria-hidden="true">
+            <div class="mini">
+              <b>TERMINAL</b>
+              <span class="bubble">&gt; tomtat</span>
+              <span class="bubble answer">Message summary</span>
+            </div>
+          </div>
+
+          <div class="project-body">
+            <h3>Telegram summary bot</h3>
+            <p class="project-lead">A prototype for catching up on new group messages in a short summary.</p>
+            <ul class="tags">
+              <li>Node.js</li>
+              <li>Telegram Bot API</li>
+              <li>Gemini API</li>
+            </ul>
+
+            <details>
+              <summary>View case study</summary>
+              <div class="case">
+                <h4>Problem</h4>
+                <p>Coming back to a busy group chat means scrolling through many new messages to understand what happened.</p>
+
+                <h4>Design</h4>
+                <p>I used Node.js to pull Telegram updates, track processed message IDs, and pass collected messages to Gemini when the <code>tomtat</code> command runs.</p>
+
+                <h4>Outcome</h4>
+                <p>I created the bot and added it to a Telegram group. The prototype accepts the summary command from the terminal.</p>
+              </div>
+            </details>
+          </div>
+        </article>
+
+        <article class="project">
+          <div class="visual web" aria-hidden="true">
+            <div class="mini bday">
+              <span class="cake">&#10022; &#9825; &#10022;</span>
+              <b>Happy birthday!</b>
+            </div>
+          </div>
+
+          <div class="project-body">
+            <h3>Birthday gift website</h3>
+            <p class="project-lead">A personal web gift with fireworks, a candle interaction, and messages.</p>
+            <ul class="tags">
+              <li>HTML</li>
+              <li>CSS</li>
+              <li>JavaScript</li>
+              <li>Netlify</li>
+            </ul>
+
+            <details>
+              <summary>View case study</summary>
+              <div class="case">
+                <h4>Goal</h4>
+                <p>Create a birthday card the recipient can explore directly in a browser.</p>
+
+                <h4>Design</h4>
+                <p>HTML structures the content, CSS styles the page, and JavaScript handles interactions such as the opening effects and the candle.</p>
+
+                <h4>Deployment</h4>
+                <p>I pushed the source to GitHub and tested deployment with Netlify, tracing how the entry file relates to the publish directory.</p>
+              </div>
+            </details>
+          </div>
+        </article>
+
+        <article class="project">
+          <div class="visual media" aria-hidden="true">
+            <div class="mini">
+              <b>VIDEO EDIT</b>
+              <div class="timeline"><i class="clip"></i><i class="clip"></i><i class="clip"></i></div>
+              <i class="audio-bar"></i>
+            </div>
+          </div>
+
+          <div class="project-body">
+            <h3>Short-form explainers</h3>
+            <p class="project-lead">Exploring how characters, narration, and motion graphics can tell a story.</p>
+            <ul class="tags">
+              <li>Storyboarding</li>
+              <li>Remotion</li>
+              <li>Motion graphics</li>
+            </ul>
+
+            <details>
+              <summary>View case study</summary>
+              <div class="case">
+                <h4>Goal</h4>
+                <p>Turn everyday questions into short videos, such as why a spoon looks bent in water.</p>
+
+                <h4>Workflow</h4>
+                <p>I split narration into beats, choose visuals for each idea, and align them to the audio. A final animation reinforces the explanation.</p>
+
+                <h4>Iteration</h4>
+                <p>I keep scripts and production notes so assets can be reused and timing adjusted between versions.</p>
+              </div>
+            </details>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section about" id="about" aria-labelledby="about-title">
+      <div>
+        <h2 id="about-title">About me</h2>
+        <p>
+          I'm Windie, a third-year Information Technology student. I like understanding
+          what people are trying to do, spotting where they get stuck, and building
+          prototypes to test possible solutions.
+        </p>
+        <p>I'm currently exploring how UX, data, and digital products intersect.</p>
+      </div>
+
+      <div class="skills">
+        <h3>Tools and skills</h3>
+        <dl>
+          <div><dt>Web</dt><dd>HTML, CSS, JavaScript, Git, GitHub</dd></div>
+          <div><dt>Automation</dt><dd>Node.js, REST APIs</dd></div>
+          <div><dt>Data</dt><dd>SQL fundamentals, JOIN, GROUP BY</dd></div>
+          <div><dt>Digital media</dt><dd>Storyboarding, Remotion</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <section class="contact" id="contact" aria-labelledby="contact-title">
+      <div>
+        <h2 id="contact-title">Get in touch</h2>
+        <p>Find me and browse my public repositories on GitHub.</p>
+      </div>
+      <a class="button primary" href="https://github.com/tienPDS-C-I-B255555">
+        GitHub profile <span aria-hidden="true">&#8599;</span>
+      </a>
+    </section>
+  </main>
+
+  <footer class="wrap">
+    <span>Windie</span>
+    <a href="#top">Back to top <span aria-hidden="true">&uarr;</span></a>
+  </footer>
+</body>
+</html>
