@@ -1,12 +1,13 @@
+<nav>
+  <a href="#du-an">Dự án</a>
+  <a href="#lien-he">Liên hệ</a>
+</nav>
 
-<!doctype html>
-<html lang="vi">
-  <head>
-    <meta charset="utf-8">
-    <title>Windie | Portfolio</title>
-  </head>
-  <body>
-    <h1>Xin chào, mình là Windie</h1>
-    <p>Mình là sinh viên IT và thích xây dựng sản phẩm giải quyết vấn đề thực tế.</p>
-  </body>
-</html>
+<section id="du-an">
+  <h2>Dự án</h2>
+  <p>Telegram bot tóm tắt tin nhắn.</p>
+</section>
+
+<section id="lien-he">
+  <h2>Liên hệ</h2>
+</section>
